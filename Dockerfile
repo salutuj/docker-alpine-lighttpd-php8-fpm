@@ -3,6 +3,7 @@ FROM alpine:3.16
 ENV LIGHTTPD_VERSION=1.4.64-r0
 ENV PHP8_VERSION=8.0.27-r0
 
+COPY start.sh /usr/local/bin/
 RUN apk --update --no-cache add \
 	lighttpd=${LIGHTTPD_VERSION} \
 	lighttpd-mod_auth \
@@ -77,12 +78,10 @@ RUN apk --update --no-cache add \
 && mkdir -p /run/lighttpd/ \
 && chown www-data /run/lighttpd \
 && mkdir -p /var/lib/lighttpd/cache/compress \
-&& mkdir -p /var/lib/lighttpd/cache
+&& mkdir -p /var/lib/lighttpd/cache \
+&& chmod +x /usr/local/bin/start.sh
 
-
-COPY etc/lighttpd/* /etc/lighttpd/
-COPY etc/php8/* /etc/php8/
-COPY start.sh /usr/local/bin/
+COPY etc/* /etc/
 
 EXPOSE 80
 
@@ -91,4 +90,3 @@ VOLUME /etc/lighttpd
 VOLUME /etc/php8
 
 CMD ["start.sh"]
-
