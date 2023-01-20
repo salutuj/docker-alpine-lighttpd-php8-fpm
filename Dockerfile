@@ -2,7 +2,7 @@ FROM alpine:3.16
 
 ENV LIGHTTPD_VERSION=1.4.64-r0
 ENV PHP8_VERSION=8.0.27-r0
-
+ENV 
 COPY start.sh /usr/local/bin/
 RUN apk --update --no-cache add \
 	lighttpd=${LIGHTTPD_VERSION} \
@@ -74,9 +74,8 @@ RUN apk --update --no-cache add \
 #  php8-xsl=${PHP8_VERSION} \
   php8-zip=${PHP8_VERSION} \
 && rm -rf /var/cache/apk/* \ 
-&& adduser www-data -G www-data -H -s /bin/false -D \
 && mkdir -p /run/lighttpd/ \
-&& chown www-data /run/lighttpd \
+&& chown lighttpd /run/lighttpd \
 && mkdir -p /var/lib/lighttpd/cache/compress \
 && mkdir -p /var/lib/lighttpd/cache \
 && chmod +x /usr/local/bin/start.sh
