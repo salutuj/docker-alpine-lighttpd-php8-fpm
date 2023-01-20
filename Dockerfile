@@ -13,7 +13,7 @@ RUN apk --update --no-cache add \
 #  php8-bcmath=${PHP8_VERSION} \
   php8-bz2=${PHP8_VERSION} \
 #  php8-calendar=${PHP8_VERSION} \
-#  php8-cgi=${PHP8_VERSION} \
+  php8-cgi=${PHP8_VERSION} \
 #  php8-ctype=${PHP8_VERSION} \
   php8-curl=${PHP8_VERSION} \
 #  php8-dba=${PHP8_VERSION} \
