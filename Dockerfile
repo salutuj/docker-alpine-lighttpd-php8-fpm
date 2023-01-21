@@ -5,8 +5,8 @@ ENV PHP8_VERSION=8.0.27-r0
 ENV 
 COPY start.sh /usr/local/bin/
 RUN apk --update --no-cache add \
-	lighttpd=${LIGHTTPD_VERSION} \
-	lighttpd-mod_auth \
+  lighttpd=${LIGHTTPD_VERSION} \
+  lighttpd-mod_auth \
   php8=${PHP8_VERSION} \
   php8-common=${PHP8_VERSION} \
 #  php8-apache2=${PHP8_VERSION} \
@@ -75,7 +75,6 @@ RUN apk --update --no-cache add \
   php8-zip=${PHP8_VERSION} \
 && rm -rf /var/cache/apk/* \ 
 && mkdir -p /run/lighttpd/ \
-&& chown lighttpd /run/lighttpd \
 && mkdir -p /var/lib/lighttpd/cache/compress \
 && mkdir -p /var/lib/lighttpd/cache \
 && chmod +x /usr/local/bin/start.sh
