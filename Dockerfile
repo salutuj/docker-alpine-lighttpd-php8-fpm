@@ -2,7 +2,7 @@ FROM alpine:3.16
 
 ENV LIGHTTPD_VERSION=1.4.64-r0
 ENV PHP8_VERSION=8.0.27-r0
-ENV 
+
 COPY start.sh /usr/local/bin/
 RUN apk --update --no-cache add \
   lighttpd=${LIGHTTPD_VERSION} \
