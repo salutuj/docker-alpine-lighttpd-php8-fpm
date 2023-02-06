@@ -18,7 +18,8 @@ RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
     [ -d  /var/run/lighttpd ] && chown ${USER_ID}:${GROUP_ID} /var/run/lighttpd  && \
     [ -d  /var/lib/lighttpd ] && chown ${USER_ID}:${GROUP_ID} /var/lib/lighttpd \
   else \
-    if [ -z getent passwd ${USER_ALIAS} ]; adduser -D -u 1000 -G ${GROUP_ALIAS} ${USER_ALIAS}; fi && \
+    echo "Args not provided" \
+    if [ ! getent passwd ${USER_ALIAS} ]; adduser -D -u 1000 -G ${GROUP_ALIAS} ${USER_ALIAS}; fi && \
   fi && \
   apk --update --no-cache add \
   lighttpd=${LIGHTTPD_VERSION} \
