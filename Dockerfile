@@ -11,8 +11,8 @@ ENV GROUP_ALIAS=www-data
 COPY start.sh /usr/local/bin/
 
 RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \    
-    if getent passwd ${USER_ALIAS} ; then deluser ${USER_ALIAS}; fi && \
-    if getent group ${GROUP_ALIAS} ; then delgroup ${GROUP_ALIAS}; fi && \     
+    if [ getent passwd ${USER_ALIAS} ]; deluser ${USER_ALIAS}; fi && \
+    if [ getent group ${GROUP_ALIAS} ]; delgroup ${GROUP_ALIAS}; fi && \     
     addgroup -g ${GROUP_ID} ${GROUP_ALIAS} && \
     adduser -D -u ${USER_ID} -G ${GROUP_ALIAS} ${USER_ALIAS} && \    
     [ -d  /var/run/lighttpd ] && chown ${USER_ID}:${GROUP_ID} /var/run/lighttpd  && \
