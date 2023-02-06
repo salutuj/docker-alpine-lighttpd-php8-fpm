@@ -3,8 +3,22 @@ FROM alpine:3.8
 ENV LIGHTTPD_VERSION=1.4.52-r0
 ENV PHP_VERSION=5.6.40-r0
 
+ARG USER_ID
+ARG GROUP_ID
+ENV USER_ALIAS=www-data
+ENV GROUP_ALIAS=www-data
+
 COPY start.sh /usr/local/bin/
-RUN apk --update --no-cache add \
+
+RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \    
+    if getent passwd ${USER_ALIAS} ; then deluser ${USER_ALIAS}; fi && \
+    if getent group ${GROUP_ALIAS} ; then delgroup ${GROUP_ALIAS}; fi && \     
+    addgroup -g ${GROUP_ID} ${GROUP_ALIAS} && \
+    adduser -D -u ${USER_ID} -G ${GROUP_ALIAS} ${USER_ALIAS} && \    
+    [ -d  /var/run/lighttpd ] && chown ${USER_ID}:${GROUP_ID} /var/run/lighttpd  && \
+    [ -d  /var/lib/lighttpd ] && chown ${USER_ID}:${GROUP_ID} /var/lib/lighttpd \
+  ;fi && \
+  apk --update --no-cache add \
   lighttpd=${LIGHTTPD_VERSION} \
   lighttpd-mod_auth \
   php5=${PHP_VERSION} \
@@ -78,7 +92,7 @@ RUN apk --update --no-cache add \
 && mkdir -p /var/lib/lighttpd/cache \
 && chmod +x /usr/local/bin/start.sh
 
-COPY etc/* /etc/
+USER ${USER_ALIAS}
 
 EXPOSE 80
 
