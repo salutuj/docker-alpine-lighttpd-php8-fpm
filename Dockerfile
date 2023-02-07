@@ -10,16 +10,17 @@ ENV GROUP_ALIAS=www-data
 
 COPY start.sh /usr/local/bin/
 
-RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \    
-    if [ getent passwd ${USER_ALIAS} ]; deluser ${USER_ALIAS}; fi  \
-    if [ getent group ${GROUP_ALIAS} ]; delgroup ${GROUP_ALIAS}; fi \     
-    addgroup -g ${GROUP_ID} ${GROUP_ALIAS} \
-    adduser -D -u ${USER_ID} -G ${GROUP_ALIAS} ${USER_ALIAS} \    
-    [ -d  /var/run/lighttpd ] && chown ${USER_ID}:${GROUP_ID} /var/run/lighttpd  \
-    [ -d  /var/lib/lighttpd ] && chown ${USER_ID}:${GROUP_ID} /var/lib/lighttpd \
+RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
+    getent passwd "${USER_ALIAS}"  && deluser "${USER_ALIAS}";  \
+    getent group "${GROUP_ALIAS}" && delgroup "${GROUP_ALIAS}"; \
+    addgroup -g "${GROUP_ID}" "${GROUP_ALIAS}"; \
+    adduser -D -u "${USER_ID}" -G "${GROUP_ALIAS}" "${USER_ALIAS}"; \
+    [ -d  /var/run/lighttpd ] && chown "${USER_ID}":"${GROUP_ID}" /var/run/lighttpd;  \
+    [ -d  /var/lib/lighttpd ] && chown "${USER_ID}":"${GROUP_ID}" /var/lib/lighttpd; \
   else \
-    echo "Args not provided" \
-    if [ ! getent passwd ${USER_ALIAS} ]; adduser -D -u 1000 -G ${GROUP_ALIAS} ${USER_ALIAS}; fi \
+    echo "Args were not provided"; \
+    ! getent group "${GROUP_ALIAS}" && addgroup -g 1000 "${GROUP_ALIAS}"; \
+    ! getent passwd "${USER_ALIAS}" && adduser -D -s /bin/false -u 1000 -G "${GROUP_ALIAS}" "${USER_ALIAS}"; \
   fi \
   && apk --update --no-cache add \
     lighttpd=${LIGHTTPD_VERSION} \
