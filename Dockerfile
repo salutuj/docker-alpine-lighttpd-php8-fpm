@@ -5,22 +5,20 @@ ENV PHP_VERSION=5.6.40-r0
 
 ARG USER_ID
 ARG GROUP_ID
-ENV USER_ALIAS=www-data
-ENV GROUP_ALIAS=www-data
+ENV USER_ALIAS=lighttpd
+ENV GROUP_ALIAS=lighttpd
 
 COPY start.sh /usr/local/bin/
 
 RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
-    getent passwd "${USER_ALIAS}"  && deluser "${USER_ALIAS}";  \
+    getent passwd "${USER_ALIAS}" && deluser "${USER_ALIAS}";  \
     getent group "${GROUP_ALIAS}" && delgroup "${GROUP_ALIAS}"; \
     addgroup -g "${GROUP_ID}" "${GROUP_ALIAS}"; \
     adduser -D -u "${USER_ID}" -G "${GROUP_ALIAS}" "${USER_ALIAS}"; \
-    [ -d  /var/run/lighttpd ] && chown "${USER_ID}":"${GROUP_ID}" /var/run/lighttpd;  \
-    [ -d  /var/lib/lighttpd ] && chown "${USER_ID}":"${GROUP_ID}" /var/lib/lighttpd; \
   else \
-    echo "Args were not provided"; \
+    echo "Args USER_ID and GROUP_ID were not provided"; \
     ! getent group "${GROUP_ALIAS}" && addgroup -g 1000 "${GROUP_ALIAS}"; \
-    ! getent passwd "${USER_ALIAS}" && adduser -D -s /bin/false -u 1000 -G "${GROUP_ALIAS}" "${USER_ALIAS}"; \
+    ! getent passwd "${USER_ALIAS}" && adduser  -u 1000 -D -s /bin/false  -G "${GROUP_ALIAS}" "${USER_ALIAS}"; \
   fi \
   && apk --update --no-cache add \
     lighttpd=${LIGHTTPD_VERSION} \
@@ -90,10 +88,10 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 #    php5-xmlrpc=${PHP_VERSION} \
 #    php5-xsl=${PHP_VERSION} \
     php5-zip=${PHP_VERSION} \
-  && rm -rf /var/cache/apk/* \ 
-  && mkdir -p /run/lighttpd/ \
-  && mkdir -p /var/lib/lighttpd/cache/compress \
-  && mkdir -p /var/lib/lighttpd/cache \
+  && rm -rf /var/cache/apk/* \
+  && mkdir -p /run/lighttpd/ && chown "${USER_ALIAS}":"${GROUP_ALIAS}" /run/lighttpd  \
+  && mkdir -p /var/lib/lighttpd && chown "${USER_ALIAS}":"${GROUP_ALIAS}" /var/lib/lighttpd \
+  && mkdir -p /var/lib/lighttpd/cache/compress && chown "${USER_ALIAS}":"${GROUP_ALIAS}" /var/lib/lighttpd\
   && chmod +x /usr/local/bin/start.sh
 
 USER ${USER_ALIAS}
