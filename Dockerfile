@@ -21,6 +21,7 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
     ! getent passwd "${USER_ALIAS}" && adduser  -u 1000 -D -s /bin/false  -G "${GROUP_ALIAS}" "${USER_ALIAS}"; \
   fi \
   && apk --update --no-cache add \
+    busybox-suid \
     lighttpd=${LIGHTTPD_VERSION} \
     lighttpd-mod_auth \
     php5=${PHP_VERSION} \
@@ -45,9 +46,9 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
     php5-fpm=${PHP_VERSION} \
 #    php5-ftp=${PHP_VERSION} \
     php5-gd=${PHP_VERSION} \
-#    php5-gettext=${PHP_VERSION} \
+    php5-gettext=${PHP_VERSION} \
 #    php5-gmp=${PHP_VERSION} \
-#    php5-iconv=${PHP_VERSION} \
+    php5-iconv=${PHP_VERSION} \
 #    php5-imap=${PHP_VERSION} \
 #    php5-intl=${PHP_VERSION} \
     php5-json=${PHP_VERSION} \
@@ -83,15 +84,15 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 #    php5-sysvsem=${PHP_VERSION} \
 #    php5-sysvshm=${PHP_VERSION} \
 #    php5-wddx=${PHP_VERSION} \
-#    php5-xml=${PHP_VERSION} \
+    php5-xml=${PHP_VERSION} \
 #    php5-xmlreader=${PHP_VERSION} \
 #    php5-xmlrpc=${PHP_VERSION} \
 #    php5-xsl=${PHP_VERSION} \
     php5-zip=${PHP_VERSION} \
   && rm -rf /var/cache/apk/* \
   && mkdir -p /run/lighttpd/ && chown "${USER_ALIAS}":"${GROUP_ALIAS}" /run/lighttpd  \
-  && mkdir -p /var/lib/lighttpd && chown "${USER_ALIAS}":"${GROUP_ALIAS}" /var/lib/lighttpd \
-  && mkdir -p /var/lib/lighttpd/cache/compress && chown "${USER_ALIAS}":"${GROUP_ALIAS}" /var/lib/lighttpd\
+  && mkdir -p /var/lib/lighttpd/cache/compress && chown -R "${USER_ALIAS}":"${GROUP_ALIAS}" /var/lib/lighttpd \  
+  && mkdir -p /var/log/php && chown "${USER_ALIAS}":"${GROUP_ALIAS}" /var/log/php \
   && chmod +x /usr/local/bin/start.sh
 
 USER ${USER_ALIAS}
