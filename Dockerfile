@@ -33,7 +33,7 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 #    php5-calendar=${PHP_VERSION} \
     php5-cgi=${PHP_VERSION} \
 #    php5-cli=${PHP_VERSION} \  
-#    php5-ctype=${PHP_VERSION} \
+    php5-ctype=${PHP_VERSION} \
     php5-curl=${PHP_VERSION} \
 #    php5-dba=${PHP_VERSION} \
 #    php5-dbg=${PHP_VERSION} \
