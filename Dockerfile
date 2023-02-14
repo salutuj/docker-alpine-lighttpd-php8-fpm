@@ -2,6 +2,7 @@ FROM alpine:3.8
 
 ENV LIGHTTPD_VERSION=1.4.52-r0
 ENV PHP_VERSION=7.2.26-r0
+ENV PHP_MCRYPT_VERSION=1.0.1-r0
 
 ARG USER_ID
 ARG GROUP_ID
@@ -53,9 +54,8 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 #    php7-intl=${PHP_VERSION} \
     php7-json=${PHP_VERSION} \
 #    php7-ldap=${PHP_VERSION} \
-    php7-mcrypt=${PHP_VERSION} \
-#    php7-mssql=${PHP_VERSION} \
-    php7-mysql=${PHP_VERSION} \
+    php7-mcrypt=${PHP_MCRYPT_VERSION} \
+#    php7-mssql=${PHP_VERSION} \    
     php7-mysqli=${PHP_VERSION} \
 #    php7-mysqlnd=${PHP_VERSION} \
 #    php7-odbc=${PHP_VERSION} \
