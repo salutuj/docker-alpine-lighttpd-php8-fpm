@@ -116,7 +116,7 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 #    php7-xmlrpc=${PHP_VERSION} \
 #    php7-xmlwriter=${PHP_VERSION} \
 #    php7-xsl=${PHP_VERSION} \
-    php7-yaml=${PHP_VERSION} \
+    php7-yaml=2.0.2-r1 \
     php7-zip=${PHP_VERSION} \
 #    php7-zmq=${PHP_VERSION} \
   && rm -rf /var/cache/apk/* \
