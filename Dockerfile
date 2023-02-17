@@ -27,16 +27,14 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
     php7=${PHP_VERSION} \
     php7-common=${PHP_VERSION} \
 #    php7-apache2=${PHP_VERSION} \
-#    php7-apcu=4.0.11-r1
+#    php7-apcu=5.1.8-r1
 #    php7-bcmath=${PHP_VERSION} \
     php7-bz2=${PHP_VERSION} \
 #    php7-calendar=${PHP_VERSION} \
-    php7-cgi=${PHP_VERSION} \
-#    php7-cli=${PHP_VERSION} \  
+    php7-cgi=${PHP_VERSION} \  
     php7-ctype=${PHP_VERSION} \
     php7-curl=${PHP_VERSION} \
 #    php7-dba=${PHP_VERSION} \
-#    php7-dbg=${PHP_VERSION} \
 #    php7-dev=${PHP_VERSION} \
 #    php7-doc=${PHP_VERSION} \
 #    php7-dom=${PHP_VERSION} \
@@ -50,11 +48,12 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 #    php7-gmp=${PHP_VERSION} \
     php7-iconv=${PHP_VERSION} \
 #    php7-imap=${PHP_VERSION} \
-#    php7-intl=${PHP_VERSION} \
+    php7-intl=${PHP_VERSION} \
     php7-json=${PHP_VERSION} \
 #    php7-ldap=${PHP_VERSION} \
+#    php7-litespeed=${PHP_VERSION} \
+    php7-mbstring=${PHP_VERSION} \
     php7-mcrypt=${PHP_VERSION} \
-#    php7-mssql=${PHP_VERSION} \    
     php7-mysqli=${PHP_VERSION} \
 #    php7-mysqlnd=${PHP_VERSION} \
 #    php7-odbc=${PHP_VERSION} \
@@ -67,27 +66,30 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 #    php7-pdo_odbc=${PHP_VERSION} \
 #    php7-pdo_pgsql=${PHP_VERSION} \
     php7-pdo_sqlite=${PHP_VERSION} \
-#    php7-pear=${PHP_VERSION} \
+    php7-pear=${PHP_VERSION} \
 #    php7-pgsql=${PHP_VERSION} \
 #    php7-phar=${PHP_VERSION} \
-#    php7-phpdbg=${PHP_VERSION} \
+    php7-phpdbg=${PHP_VERSION} \
 #    php7-posix=${PHP_VERSION} \
 #    php7-pspell=${PHP_VERSION} \
+    php7-session=${PHP_VERSION} \
 #    php7-shmop=${PHP_VERSION} \
 #    php7-snmp=${PHP_VERSION} \
 #    php7-soap=${PHP_VERSION} \
 #    php7-sockets=${PHP_VERSION} \
     php7-sqlite3=${PHP_VERSION} \
-#    php7-suhosin=${PHP_VERSION} \
 #    php7-sysvmsg=${PHP_VERSION} \
 #    php7-sysvsem=${PHP_VERSION} \
 #    php7-sysvshm=${PHP_VERSION} \
+#    php7-tidy=${PHP_VERSION} \
 #    php7-wddx=${PHP_VERSION} \
+#    php7-xdebug=${PHP_VERSION} \
     php7-xml=${PHP_VERSION} \
 #    php7-xmlreader=${PHP_VERSION} \
 #    php7-xmlrpc=${PHP_VERSION} \
 #    php7-xsl=${PHP_VERSION} \
     php7-zip=${PHP_VERSION} \
+#    php7-zlib=${PHP_VERSION} \
   && rm -rf /var/cache/apk/* \
   && mkdir -p /run/lighttpd/ && chown "${USER_ALIAS}":"${GROUP_ALIAS}" /run/lighttpd  \
   && mkdir -p /var/lib/lighttpd/cache/compress && chown -R "${USER_ALIAS}":"${GROUP_ALIAS}" /var/lib/lighttpd \  
