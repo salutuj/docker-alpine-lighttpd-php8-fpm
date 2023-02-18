@@ -103,7 +103,7 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 #    php7-pecl-xhprof-assets=2.3.5-r0 \
     php7-pecl-yaml=2.2.2-r0 \
 #    php7-pecl-zmq=1.1.3-r8 \
-    php7-pecl-zstd=0.11.0-r0 \
+#    php7-pecl-zstd=0.11.0-r0 \
 #    php7-pgsql=${PHP_VERSION} \
 #    php7-phalcon=4.1.2-r0 \
 #    php7-phar=${PHP_VERSION} \
