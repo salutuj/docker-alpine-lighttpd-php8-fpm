@@ -2,9 +2,9 @@ name: Docker Image CI - php7 alpine3.8 lighttpd:1.4.52
 
 on:
   push:
-    branches: [ "php7.2" ]
+    branches: [ "php-7.2" ]
   pull_request:
-    branches: [ "php7.2" ]
+    branches: [ "php-7.2" ]
 jobs:
   build:
     runs-on: ubuntu-latest
