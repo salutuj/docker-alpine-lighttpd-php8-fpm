@@ -1,8 +1,7 @@
-FROM alpine:3.8
+FROM alpine:3.15
 
-ENV LIGHTTPD_VERSION=1.4.52-r0
-ENV PHP_VERSION=7.2.26-r0
-ENV PHP_MCRYPT_VERSION=1.0.1-r0
+ENV LIGHTTPD_VERSION=1.4.64-r0
+ENV PHP_VERSION=7.4.33-r0
 
 ARG USER_ID
 ARG GROUP_ID
@@ -27,46 +26,39 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
     lighttpd-mod_auth \
     php7=${PHP_VERSION} \
     php7-common=${PHP_VERSION} \
-#    php7-amqp=1.9.3-r1 \
 #    php7-apache2=${PHP_VERSION} \
 #    php7-apcu=5.1.11-r2 \
 #    php7-bcmath=${PHP_VERSION} \
+#    php7-brotli-0.11.1-r0 \
     php7-bz2=${PHP_VERSION} \
 #    php7-calendar=${PHP_VERSION} \
     php7-cgi=${PHP_VERSION} \
     php7-ctype=${PHP_VERSION} \
     php7-curl=${PHP_VERSION} \
 #    php7-dba=${PHP_VERSION} \
+#    php7-dbg=${PHP_VERSION} \
 #    php7-dev=${PHP_VERSION} \
 #    php7-doc=${PHP_VERSION} \
 #    php7-dom=${PHP_VERSION} \
 #    php7-embed=${PHP_VERSION} \
 #    php7-enchant=${PHP_VERSION} \
-#    php7-event=2.4.1-r0 \
     php7-exif=${PHP_VERSION} \
+    php7-ffi=${PHP_VERSION} \
     php7-fileinfo=${PHP_VERSION} \
     php7-fpm=${PHP_VERSION} \
 #    php7-ftp=${PHP_VERSION} \
     php7-gd=${PHP_VERSION} \
     php7-gettext=${PHP_VERSION} \
-#    php7-gmagick=2.0.5_rc1-r2 \
 #    php7-gmp=${PHP_VERSION} \
     php7-iconv=${PHP_VERSION} \
-#    php7-imagick=3.4.3-r9 \
-#    php7-imagick-dev=3.4.3-r9 \
 #    php7-imap=${PHP_VERSION} \
     php7-intl=${PHP_VERSION} \
     php7-json=${PHP_VERSION} \
 #    php7-ldap=${PHP_VERSION} \
 #    php7-litespeed=${PHP_VERSION} \
-#    php7-mailparse=3.0.2-r2 \
-    php7-mbstring=${PHP_VERSION} \
-    php7-mcrypt=${PHP_MCRYPT_VERSION} \
-#    php7-memcached=3.0.4-r1 \    
-#    php7-mongodb=1.4.4-r0 \    
+    php7-mbstring=${PHP_VERSION} \    
     php7-mysqli=${PHP_VERSION} \
 #    php7-mysqlnd=${PHP_VERSION} \
-    php7-oauth=2.0.2-r3 \
 #    php7-odbc=${PHP_VERSION} \
     php7-opcache=${PHP_VERSION} \
     php7-openssl=${PHP_VERSION} \
@@ -78,47 +70,67 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 #    php7-pdo_pgsql=${PHP_VERSION} \
     php7-pdo_sqlite=${PHP_VERSION} \
     php7-pear=${PHP_VERSION} \
-#    php7-pear-auth_sasl-1.1.0-r0 \
-#    php7-pear-auth_sasl2-0.2.0-r0 \
-#    php7-pear-mail_mime-1.10.0-r0 \
-#    php7-pear-mdb2_driver_mysql-1.5.0b4-r0 \
-#    php7-pear-mdb2_driver_pgsql-1.5.0b4-r0 \
-#    php7-pear-net_idna2-0.2.0-r1 \
-#    php7-pear-net_smtp-1.8.0-r1 \
-#    php7-pear-net_smtp-doc-1.8.0-r1 \
-#    php7-pear-net_socket-1.1.0-r0 \
+#    php7-pecl-amqp=1.11.0-r0\
+#    php7-pecl-apcu=5.1.21-r0 \
+#    php7-pecl-ast=1.0.16-r0 \
+#    php7-pecl-couchbase=3.2.2-r0 \
+#    php7-pecl-event=3.0.6-r0 \
+#    php7-pecl-gmagick=2.0.6_rc1-r1 \
+#    php7-pecl-igbinary=3.2.6-r0 \
+#    php7-pecl-imagick=3.6.0-r0 \
+#    php7-pecl-imagick-dev=3.6.0-r0 \
+#    php7-pecl-lzf=1.6.8-r1 \
+#    php7-pecl-mailparse=3.1.3-r0 \
+#    php7-pecl-maxminddb=1.11.0-r0 \
+    php7-pecl-mcrypt=1.0.4-r0 \
+#    php7-pecl-memcache=4.0.5.2-r1 \
+    php7-pecl-memcached=3.1.5-r2 \
+    php7-pecl-mongodb=1.11.1-r0 \
+#    php7-pecl-msgpack=2.2.0_rc1-r0 \
+    php7-pecl-oauth=2.0.7-r1 \
+#    php7-pecl-protobuf=3.19.1-r0 \
+#    php7-pecl-psr=1.1.0-r0 \
+#    php7-pecl-rdkafka=5.0.2-r0 \
+#    php7-pecl-redis=5.3.6-r0 \
+#    php7-pecl-ssh2=1.3.1-r0 \
+#    php7-pecl-timezonedb=2021.5-r0 \
+    php7-pecl-uploadprogress=2.0.2-r0 \
+#    php7-pecl-uploadprogress-doc=2.0.2-r0 \
+    php7-pecl-uuid=1.2.0-r0 \
+#    php7-pecl-vips=1.0.12-r0 \
+#    php7-pecl-xdebug=3.1.4-r0 \
+#    php7-pecl-xhprof=2.3.5-r0 \
+#    php7-pecl-xhprof-assets=2.3.5-r0 \
+    php7-pecl-yaml=2.2.2-r0 \
+#    php7-pecl-zmq=1.1.3-r8 \
+    php7-pecl-zstd=0.11.0-r0 \
 #    php7-pgsql=${PHP_VERSION} \
+#    php7-phalcon=4.1.2-r0 \
 #    php7-phar=${PHP_VERSION} \
 #    php7-phpdbg=${PHP_VERSION} \
 #    php7-posix=${PHP_VERSION} \
 #    php7-pspell=${PHP_VERSION} \
-#    php7-recode=${PHP_VERSION} \
-#    php7-redis=4.0.2-r0 \
     php7-session=${PHP_VERSION} \
 #    php7-shmop=${PHP_VERSION} \
-#    php7-simplexml=${PHP_VERSION} \
+    php7-simplexml=${PHP_VERSION} \
 #    php7-snmp=${PHP_VERSION} \
 #    php7-soap=${PHP_VERSION} \
 #    php7-sockets=${PHP_VERSION} \
 #    php7-sodium=${PHP_VERSION} \
     php7-sqlite3=${PHP_VERSION} \
-#    php7-ssh2=1.1.2-r2 \
 #    php7-suhosin=${PHP_VERSION} \
 #    php7-sysvmsg=${PHP_VERSION} \
 #    php7-sysvsem=${PHP_VERSION} \
 #    php7-sysvshm=${PHP_VERSION} \
+#    php7-tideways_xhprof=5.0.4-r0 \
 #    php7-tidy=${PHP_VERSION} \
 #    php7-tokenizer=${PHP_VERSION} \
-#    php7-wddx=${PHP_VERSION} \
-#    php7-xdebug=${PHP_VERSION} \
     php7-xml=${PHP_VERSION} \
 #    php7-xmlreader=${PHP_VERSION} \
 #    php7-xmlrpc=${PHP_VERSION} \
 #    php7-xmlwriter=${PHP_VERSION} \
-#    php7-xsl=${PHP_VERSION} \
-    php7-yaml=2.0.2-r1 \
+#    php7-xsl=${PHP_VERSION} \    
     php7-zip=${PHP_VERSION} \
-#    php7-zmq=${PHP_VERSION} \
   && rm -rf /var/cache/apk/* \
   && mkdir -p /run/lighttpd/ && chown "${USER_ALIAS}":"${GROUP_ALIAS}" /run/lighttpd  \
   && mkdir -p /var/lib/lighttpd/cache/compress && chown -R "${USER_ALIAS}":"${GROUP_ALIAS}" /var/lib/lighttpd \  
