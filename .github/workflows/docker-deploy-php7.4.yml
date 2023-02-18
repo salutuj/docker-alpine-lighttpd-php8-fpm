@@ -1,10 +1,10 @@
-name: Docker Image CI - php7 alpine3.8 lighttpd:1.4.52
+name: Docker Image CI - php7.4 alpine3.15 lighttpd:1.4.64
 
 on:
   push:
-    branches: [ "php7.2" ]
+    branches: [ "php-7.4" ]
   pull_request:
-    branches: [ "php7.2" ]
+    branches: [ "php-7.4" ]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,4 +29,4 @@ jobs:
       - name: Run Buildx
         run: |
           docker buildx build --platform linux/amd64,linux/arm64,linux/386,linux/arm/v7,linux/arm/v6 \
-            --push . -t salutuj/lighttpd-php7.2:latest -t salutuj/lighttpd-php7.2:1.4.52-r0
+            --push . -t salutuj/lighttpd-php7.4:latest -t salutuj/lighttpd-php7.2:1.4.64-r0
