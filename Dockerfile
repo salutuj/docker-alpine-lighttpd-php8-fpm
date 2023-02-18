@@ -96,7 +96,7 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 #    php7-redis=4.0.2-r0 \
     php7-session=${PHP_VERSION} \
 #    php7-shmop=${PHP_VERSION} \
-#    php7-simplexml=${PHP_VERSION} \
+    php7-simplexml=${PHP_VERSION} \
 #    php7-snmp=${PHP_VERSION} \
 #    php7-soap=${PHP_VERSION} \
 #    php7-sockets=${PHP_VERSION} \
