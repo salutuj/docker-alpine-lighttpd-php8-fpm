@@ -134,6 +134,6 @@ EXPOSE 80
 
 VOLUME /var/www/localhost/htdocs
 VOLUME /etc/lighttpd
-VOLUME /etc/php8
+VOLUME /etc/php81
 
 CMD ["start.sh"]
