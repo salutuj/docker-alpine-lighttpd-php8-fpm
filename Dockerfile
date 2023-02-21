@@ -131,6 +131,7 @@ RUN if [ "${USER_ID:-0}" -ne 0 ] && [ "${GROUP_ID:-0}" -ne 0 ]; then \
 USER ${USER_ALIAS}
 
 EXPOSE 80
+EXPOSE 443
 
 VOLUME /var/www/localhost/htdocs
 VOLUME /etc/lighttpd
